@@ -38,6 +38,5 @@ class ServerReport implements ShouldQueue
 
         $update_db=new \App\Masks\MaskInfo();
         $update_db->updateDB($arr_data,$exist);
-
     }
 }
