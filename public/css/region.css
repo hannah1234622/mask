@@ -1,0 +1,9 @@
+select {
+    position: relative;
+    top: 3px;
+    padding: 7px 25px;
+    border-radius: 5px;
+}
+form{
+    padding: 20px;
+}
