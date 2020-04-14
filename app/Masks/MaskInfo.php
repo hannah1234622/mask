@@ -26,6 +26,7 @@ class MaskInfo
         return $mask_data;
     }
 
+    /**新增或修改資料**/
     public function updateDB($mask_data1)
     {
         for ($i = 0; $i < count($mask_data1)-1; $i++) {
