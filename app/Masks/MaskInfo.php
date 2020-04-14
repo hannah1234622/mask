@@ -14,52 +14,53 @@ class MaskInfo
         $curl -> setHeader('X-Requested-With', 'XMLHttpRequest');//XMLHttpRequest是js的class物件 能傳遞資料到網頁伺服器 並獲取回應
         $curl -> get('https://data.nhi.gov.tw/resource/mask/maskdata.csv');//用curl獲取網頁頁面內容
         if ($curl -> error) {
-            echo $curl -> error_code; //錯誤則顯示錯誤訊息
-        }
-        else {
+            $curl -> error_code; //錯誤則顯示錯誤訊息至log
+            Log::error($curl);
+        } else {
             $data = $curl -> response;//curl出成功的響應
-            $arr_data = mb_split("\n", $data);//將字串轉陣列
-            return $arr_data;
+            $mask_data = mb_split("\n", $data);//將字串轉陣列
+            return $mask_data;
         }
         $curl -> close();
     }
     
-    /**確定記錄是否存在**/
-    public function exists()
+    /**刪除不要的資料 並重新排序**/
+    public function process($mask_data)
     {
-        $exist = DB::table('masks')->where('m_id', 1)->exists();
-        return $exist;
+        array_splice($mask_data,0,1);
+        return $mask_data;
     }
 
-    public function updateDB($arr_data, $exist)
+    public function updateDB($mask_data1)
     {
-        for ($i = 1; $i < count($arr_data)-1; $i++) {
-            $arr_data1 = mb_split(",", $arr_data[$i]);
-            if ($exist > 0) {
+        for ($i = 0; $i < count($mask_data1)-1; $i++) {
+            $mask_info = mb_split(",", $mask_data1[$i]);
+            $exist = DB::table('masks')->where('Institution_Code', $mask_info[0])->exists();
+            if ($exist) {
                 //若資料庫有資料則修改
-                $update_rows = DB::table('masks')->where('m_id', $i)->
+                $update_rows = DB::table('masks')->where('Institution_Code', $mask_info[0])->
                 update(array(
-                    'Institution_Code' => $arr_data1[0],
-                    'Institution_Name' => $arr_data1[1],
-                    'Institution_Address' => $arr_data1[2],
-                    'Institution_Phone' => $arr_data1[3],
-                    'Adult_Mask' => $arr_data1[4],
-                    'Child_Mask' => $arr_data1[5],
-                    'Source_Time' => $arr_data1[6]
+                    'Institution_Code' => $mask_info[0],
+                    'Institution_Name' => $mask_info[1],
+                    'Institution_Address' => $mask_info[2],
+                    'Institution_Phone' => $mask_info[3],
+                    'Adult_Mask' => $mask_info[4],
+                    'Child_Mask' => $mask_info[5],
+                    'Source_Time' => $mask_info[6]
                 ));            
             } else { 
                 //若資料庫沒資料則新增
                 $add_rows = DB::table('masks')->insert([
-                    'm_id' => $i,
-                    'Institution_Code' => $arr_data1[0],
-                    'Institution_Name' => $arr_data1[1],
-                    'Institution_Address' => $arr_data1[2],
-                    'Institution_Phone' => $arr_data1[3],
-                    'Adult_Mask' => $arr_data1[4],
-                    'Child_Mask' => $arr_data1[5],
-                    'Source_Time' => $arr_data1[6]
+                    'Institution_Code' => $mask_info[0],
+                    'Institution_Name' => $mask_info[1],
+                    'Institution_Address' => $mask_info[2],
+                    'Institution_Phone' => $mask_info[3],
+                    'Adult_Mask' => $mask_info[4],
+                    'Child_Mask' => $mask_info[5],
+                    'Source_Time' => $mask_info[6]
                 ]);
             }
+            
         }
     }
 }

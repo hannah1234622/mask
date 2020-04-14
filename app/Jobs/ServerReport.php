@@ -30,13 +30,9 @@ class ServerReport implements ShouldQueue
      */
     public function handle()
     {
-        $arr_data=new \App\Masks\MaskInfo();
-        $arr_data=$arr_data->get();
-
-        $exist=new \App\Masks\MaskInfo();
-        $exist=$exist->exists();
-
-        $update_db=new \App\Masks\MaskInfo();
-        $update_db->updateDB($arr_data,$exist);
+        $data=new \App\Masks\MaskInfo();
+        $mask_data = $data->get();
+        $mask_data1 = $data->process($mask_data);
+        $data->updateDB($mask_data1);
     }
 }

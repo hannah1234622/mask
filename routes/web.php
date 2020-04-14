@@ -22,4 +22,3 @@ Route::get('front', 'FrontController@front');
 Route::get('mask/{city?}/{region?}/{location?}', 'MaskController@mask');
 
 Route::get('data', 'DataController@data');
-
