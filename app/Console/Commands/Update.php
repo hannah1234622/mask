@@ -37,10 +37,8 @@ class Update extends Command
      */
     public function handle()
     {
-        $data = $this->confirm('Do you want to updata data?');
-        if($data){
-            $update_data = new \App\Http\Controllers\QueueController();
-            $update_data = $update_data->server();
-        }
+        $update_data = new \App\Http\Controllers\QueueController();
+        $update_data = $update_data->server();
     }
+
 }
