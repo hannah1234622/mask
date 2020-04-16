@@ -24,7 +24,7 @@ Route::get('mask/{city?}/{region?}/{location?}', 'MaskController@mask');
 Route::get('data', 'DataController@data');
 
 Route::get('test', function () {
-    $strs = ["flower","flow","flight"];
+    $strs = ["flower","flow"];
     $c = [];
     $e = "";
     $d = [];
@@ -47,8 +47,7 @@ Route::get('test', function () {
             $b =preg_split('//', $strs[$i], -1, PREG_SPLIT_NO_EMPTY);
             $c[$i] = $b;
         }
-        echo $g = count($c)-1;
-        var_dump($c);
+        $g = count($c)-1;
         $i = 0;
         for ($j=0; $j < count($c[0]); $j++) {
             for ($i=0; $i < count($c); $i++) {         
@@ -61,52 +60,27 @@ Route::get('test', function () {
                 }else {
                     if ($c[$g][$j] == $c[0][$j]) {
                         $arr[$g] = [$c[$i][$j]];
+                        var_dump($arr[$g]);
                     }else{
                         return (string)$e;
                     }
                 }             
             }
-            var_dump($arr);
-            
             foreach ($arr as $key => $value1) {
                 foreach ($value1 as $key => $value) {
                     $d = $value;
-                    
                 }
-            }   
+            } 
+             
             array_push($z,$d);
-            $output = implode($z); 
-            print_r($output);
-            echo "<br>";
-            echo strlen($output);
-            echo "<br>";
-            echo $j;
-
-        }
-        
-                
-                
-
-                    
-        /*
-        for ($i=0; $i < count($c); $i++) {
-            if (isset($c[$i+1])) {
-                if ($c[$i][0] !== $c[$i+1][0]) {
-                    return (string)$e; 
-                }else {
-                    $result = array_intersect_assoc ($c[$i], $c[$i+1]);
-                    if (empty($result)) {
-                        return (string)$e; 
-                    }                    
-                }
-            }elseif (count($c)==1) {
-                $output = implode($c[$i]);
-                return $output;
+            $output = implode($z);
+            var_dump(count($z));
+            var_dump($output);
+            echo $g;
+            if (strlen($output) == $g) {
+                var_dump($output);
             }
         }
-        $output = implode($result);
-        return $output;
-        */
     }
      
 });

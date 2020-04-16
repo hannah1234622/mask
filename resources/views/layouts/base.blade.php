@@ -15,7 +15,7 @@
     <div class = "jumbotron" style="position: absolute;top: 0px;width: 100%;">
         <h1><span class="badge badge-secondary" style="position: absolute;left: 250px;">YUHUA</span></h1></h1>
         <div style = "background-color: white;width: 80%;margin-left: 10%;padding: 30px;margin-top: 5%;">
-            <h1 style = "color: rgb(4, 129, 255);font-weight: bold;">口罩供需即時資訊查詢</h1>
+            <h1 style = "color: rgb(4, 129, 255);font-weight: bold;">口罩供需資訊查詢</h1>
             <hr><span id="ShowBox"></span>
             <ol style = "border: rgb(209, 208, 208) 1px solid;position: relative;left: 15%;width: 70%;padding: 20px;border-radius: 5px;">
             @yield('header')

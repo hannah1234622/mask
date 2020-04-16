@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', '口罩供需即時資訊查詢')
+@section('title', '口罩供需資訊查詢')
 
 @section('header')
     <li>庫存資料來源為衛福部健保資料庫，更新頻率為60秒，若對庫存數字有疑問，可以直接詢問衛福部。</li>
