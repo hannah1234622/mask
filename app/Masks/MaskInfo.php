@@ -15,22 +15,21 @@ class MaskInfo
         $curl -> setHeader('X-Requested-With', 'XMLHttpRequest');//XMLHttpRequest是js的class物件 能傳遞資料到網頁伺服器 並獲取回應
         $curl -> get('https://data.nhi.gov.tw/resource/mask/maskdata.csv');//用curl獲取網頁頁面內容
         if ($curl -> error) {
-            $err = $curl -> error_code; 
+            $err = $curl -> error_code;
+            $curl -> close();
             throw new \App\Exceptions\MaskException($err);//錯誤則執行錯誤處理
-            $curl -> close();
-        } else {
-            $data = $curl -> response;//curl出成功的響應
-            $mask_data = mb_split("\n", $data);//將字串轉陣列
-            $curl -> close();
-            return $mask_data;
         }
+        $mask_data = $curl -> response;//curl出成功的響應
+        $curl -> close();
+        return $mask_data;
     }
     
-    /**刪除不要的資料 並重新排序**/
+    /**處理得到的資料**/
     public function process($mask_data)
     {
-        array_splice($mask_data,0,1);
-        return $mask_data;
+        $mask_data1 = mb_split("\n", $mask_data);//將字串轉陣列
+        array_splice($mask_data1,0,1);
+        return $mask_data1;
     }
 
     public function updateDB($mask_data1)
@@ -59,7 +58,7 @@ class MaskInfo
                     'Institution_Phone' => $mask_info[3],
                     'Adult_Mask' => $mask_info[4],
                     'Child_Mask' => $mask_info[5],
-                    'Source_Time' => $mask_info[6]
+                    'Source_Time' => $mask_info[6],
                 ]);
             }
         }

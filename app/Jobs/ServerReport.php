@@ -30,6 +30,7 @@ class ServerReport implements ShouldQueue
      */
     public function handle()
     {
+        //放在隊列的任務
         $data=new \App\Masks\MaskInfo();
         $mask_data = $data->get();
         $mask_data1 = $data->process($mask_data);

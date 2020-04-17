@@ -10,7 +10,7 @@ class QueueController extends Controller
 {
     public function server()
     {
-        //dispatch()來把 Job 變成訂單送到 Queue
+        //dispatch() 將任務推送到隊列上
         ServerReport::dispatch(); 
     }
 }

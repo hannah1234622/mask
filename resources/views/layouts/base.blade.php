@@ -149,14 +149,9 @@
     function send() 
     {
         var city = document.getElementById("city").value;
-        if (city != 0) {
-            var region = document.getElementById("region").value;
-            if (region != 0) {
-                var location = regions[city][region];
-                document.location.href = "http://127.0.0.1/mask/" + city + "/" + region + "/" + location;
-            } else {
-                alert("請選擇縣市與區域～");
-            }
+        var region = document.getElementById("region").value;
+        if ((city != 0) && (region != 0)) {
+            document.location.href = "http://127.0.0.1/mask/" + city + "/" + region;
         }else{
             alert("請選擇縣市與區域～");
         }
@@ -165,14 +160,14 @@
     {
         document.getElementById("region").options.length = 0;//第二個選項設定初始值
         var url = location.pathname;
-        var ary1 = url.split('/');
-        var ary2 = ary1[3];
+        var uri = url.split('/');
+        var region_value = uri[3];
         for (var i=0;i<regions[value].length;i++){ //for(變數為零;regionArray矩陣長度-1;變數加一)
             var node = document.createElement("option");//產生一個option的容器
             var text = document.createTextNode(regions[value][i]);//產生文字節點後 將含有數據的字串加入文字節點中
             node.setAttribute("value",i);//為變數node賦予屬性
             node.appendChild(text);//將內容移動到node元素
-            if (i == ary2) {
+            if (i == region_value) {
                 node.setAttribute("selected", 'true');
             } 
             document.getElementById("region").appendChild(node);//在region的id賦予node元素
@@ -185,39 +180,25 @@
             //載入下一頁    
             console.log('navigation');
             var url = location.pathname;
-            var ary1 = url.split('/');
-            var ary2 = ary1[2];
-            if (ary2 < regions.length-1 && ary1[1] == "mask") {
-                change(ary2);
-            } else if (ary1[1] !== "front") {
-                alert("無法確認該網頁");
-            }
+            var uri = url.split('/');
+            var city_value = uri[2];
+            change(city_value);
         }
-        //取得路由參數
         if (!!window.performance && window.performance.navigation.type === 1) {
             //重整
             console.log('Reloading');
             var url = location.pathname;
-            var ary1 = url.split('/');
-            var ary2 = ary1[2];
-            if (ary2 < regions.length-1 && ary1[1] == "mask") {
-                change(ary2);
-            } else if (ary1[1] !== "front") {
-                alert("無法確認該網頁");
-            }
+            var uri = url.split('/');
+            var city_value = uri[2];
+            change(city_value);
         }
-        //取得路由參數
         if (!!window.performance && window.performance.navigation.type === 2) {
             //回上一頁
             console.log('backforward');
             var url = location.pathname;
-            var ary1 = url.split('/');
-            var ary2 = ary1[2];
-            if (ary2 < regions.length-1 && ary1[1] == "mask") {
-                change(ary2);
-            } else if (ary1[1] !== "front") {
-                alert("無法確認該網頁");
-            }
+            var uri = url.split('/');
+            var city_value = uri[2];
+            change(city_value);
         }
     });
     </script>
