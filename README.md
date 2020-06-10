@@ -1,7 +1,7 @@
 # heartbeat.d
-
+### 去gitlab下載檔案
 heartbeat/monitors.d
-綁 http://gitlab-outside.vir888.com/monitors/heartbeat.d SSH key
+在綁 http://gitlab-outside.vir888.com/monitors/heartbeat.d SSH key
 
 ### 也可以去ssh outlog看設定
 yu-hua@CY0015442-YU-HUA ~ % ssh yu-hua@10.249.53.12 <br>
