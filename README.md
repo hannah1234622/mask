@@ -1,3 +1,3 @@
-# 使用heartbeat.d監控路由
+# heartbeat.d
 
 heartbeat/monitors.d
