@@ -1,8 +1,8 @@
 # heartbeat.d
 ### gitlab設定
 heartbeat/monitors.d
-在gitlab綁SSH <br>
-key http://gitlab-outside.vir888.com/monitors/heartbeat.d <br>
+在gitlab綁SSH key <br>
+ http://gitlab-outside.vir888.com/monitors/heartbeat.d <br>
 並clone下載檔案 <br>
 git clone ssh://git@gitlab-outside.vir888.com:20022/monitors/heartbeat.d.git <br>
   
